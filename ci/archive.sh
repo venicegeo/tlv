@@ -22,5 +22,6 @@ git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 pushd $root/tlv/timeLapse
 	sed -i '/apply plugin:"war"/d' build.gradle
 	grails package
+	ls -alhR
 	mv build/libs/timeLapse-0.1.war $root/$APP.$EXT
 popd
