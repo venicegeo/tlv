@@ -23,5 +23,5 @@ pushd $root/tlv/timeLapse
 	sed -i '/apply plugin:"war"/d' build.gradle
 	grails package
 	ls -alhR
-	mv build/libs/timeLapse-0.1.war $root/$APP.$EXT
+	mv build/libs/timeLapse-0.1.jar $root/$APP.$EXT
 popd
