@@ -19,5 +19,5 @@ fi
 
 
 # grails
-sdk install grails 3.0.16
-sdk use grails 3.0.16
+sdk install grails 3.1.5
+sdk use grails 3.1.5
