@@ -1,7 +1,7 @@
 applications:
 - name: tlv
   host: tlv
-  path: tlv.jar
+  command: java -jar tlv.jar
   buildpack: java_buildpack_offline
   domain: stage.geointservices.io
   memory: 1G
