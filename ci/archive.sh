@@ -20,8 +20,10 @@ git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 
 # compile the artifact
 pushd $root/tlv/timeLapse
+	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
+
+	# create the jar file
 	grails package
-	ls -alhR
 	mv build/libs/timeLapse-0.1.jar $root/$APP.$EXT
 popd
