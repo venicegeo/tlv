@@ -24,6 +24,6 @@ pushd $root/tlv/time_lapse
 	sed -i '/apply plugin:"war"/d' build.gradle
 
 	# create the jar file
-	grails package
+	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
 popd
