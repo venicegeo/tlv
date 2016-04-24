@@ -3,7 +3,8 @@ applications:
   host: tlv
   path: tlv.jar
   buildpack: java_buildpack_offline
-  domain: stage.geointservices.io
   memory: 1G
   instances: 1
   timeout: 180
+  env:
+    SPRING_CONFIG_LOCATION: "/home/vcap/app/config.yml"
