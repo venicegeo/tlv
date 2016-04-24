@@ -1,10 +1,8 @@
 applications:
 - name: tlv
   host: tlv
-  path: tlv.jar
+  command: java -Dlocal.config.location=/home/vcap/app/config.yml -jar tlv.jar
   buildpack: java_buildpack_offline
   memory: 1G
   instances: 1
   timeout: 180
-  env:
-    SPRING_CONFIG_LOCATION: "/home/vcap/app/config.yml"
