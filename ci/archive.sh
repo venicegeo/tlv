@@ -20,6 +20,7 @@ git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 
 # create the application documentation
 type asciidoctor > /dev/null 2>&1 || gem install asciidoctor
+asciidoctor --version
 asciidoctor docs/tlv.adoc
 # this will include the docs in the application jar file
 mv ../docs/tlv.html time_lapse/grails-app/conf/
