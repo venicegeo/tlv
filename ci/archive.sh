@@ -34,7 +34,7 @@ git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this will include the external config file in the application jar file
-	cat ../config.yml grails-app/conf/application.yml
+	cat ../config.yml >> grails-app/conf/application.yml
 
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle

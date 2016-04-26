@@ -1,7 +1,7 @@
 applications:
 - name: tlv
   host: tlv
-  command: java -Dlocal.config.location=/home/vcap/app/config.yml -jar tlv.jar
+  path: tlv.jar
   buildpack: java_buildpack_offline
   memory: 1G
   instances: 1
