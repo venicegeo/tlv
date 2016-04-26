@@ -18,11 +18,16 @@ source $root/ci/vars.sh
 git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 
 
-# create the application documentation
+# install asciidoctor
 type asciidoctor > /dev/null 2>&1 || gem install asciidoctor
 type asciidoctor-pdf > /dev/null 2>&1 || gem install --pre asciidoctor-pdf
+
+which asciidoctor
+
+# create the application documentation
 asciidoctor --version
 asciidoctor docs/tlv.adoc
+
 # this will include the docs in the application jar file
 mv ../docs/tlv.html time_lapse/grails-app/conf/
 
