@@ -19,22 +19,22 @@ git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 
 
 # install asciidoctor
-type asciidoctor > /dev/null 2>&1 || gem install asciidoctor
+#type asciidoctor > /dev/null 2>&1 || gem install asciidoctor
 #type asciidoctor-pdf > /dev/null 2>&1 || gem install --pre asciidoctor-pdf
-PATH=$HOME/bin:$PATH
+#PATH=$HOME/bin:$PATH
 
 # create the application documentation
-asciidoctor --version
-asciidoctor $root/tlv/docs/tlv.adoc
+#asciidoctor --version
+#asciidoctor $root/tlv/docs/tlv.adoc
 
 # this will include the docs in the application jar file
-mv $root/tlv/docs/tlv.html $root/tlv/time_lapse/grails-app/conf/
+#mv $root/tlv/docs/tlv.html $root/tlv/time_lapse/grails-app/conf/
 
 
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this will include the external config file in the application jar file
-	mv ../config.yml grails-app/conf/
+	cat ../config.yml grails-app/conf/application.yml
 
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
