@@ -20,7 +20,6 @@ git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 
 # install asciidoctor
 type asciidoctor > /dev/null 2>&1 || gem install asciidoctor
-type asciidoctor-pdf > /dev/null 2>&1 || gem install --pre asciidoctor-pdf
 PATH=$HOME/bin:$PATH
 
 # create the application documentation
@@ -43,3 +42,5 @@ pushd $root/tlv/time_lapse
 	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
 popd
+
+# comment to pull in the latest build
