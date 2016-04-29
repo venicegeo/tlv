@@ -42,5 +42,3 @@ pushd $root/tlv/time_lapse
 	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
 popd
-
-# comment to pull in the latest build
