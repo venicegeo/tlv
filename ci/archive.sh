@@ -33,7 +33,11 @@ mv $root/tlv/docs/tlv.html $root/tlv/time_lapse/grails-app/conf/
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this will include the external config file in the application jar file
-	cat ../config.yml >> grails-app/conf/application.yml
+	set +x
+	export HISTFILE=/dev/null
+	git clone https://$NAQUINKJ_USER:$NAQUINKJ_PASS@gitlab.devops.geointservices.io/$NAQUINKJ_USER/tlv.git
+	cat tlv/config.yml >> grails-app/conf/application.yml
+	set -x
 
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
