@@ -33,7 +33,7 @@ mv $root/tlv/docs/tlv.html $root/tlv/time_lapse/grails-app/conf/
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this will include the external config file in the application jar file
-	set +x
+	set +x # don't want to show any passwords
 	export HISTFILE=/dev/null
 	git clone https://$NAQUINKJ_USER:$NAQUINKJ_PASS@gitlab.devops.geointservices.io/$NAQUINKJ_USER/tlv.git
 	cat tlv/config.yml >> grails-app/conf/application.yml
