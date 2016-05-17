@@ -3,6 +3,6 @@ applications:
   host: tlv
   path: tlv.jar
   buildpack: java_buildpack_offline
-  memory: 1G
+  memory: 2G
   instances: 1
   timeout: 180
