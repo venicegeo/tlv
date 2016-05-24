@@ -23,7 +23,6 @@ type asciidoctor > /dev/null 2>&1 || gem install asciidoctor
 PATH=$HOME/bin:$PATH
 
 # create the application documentation
-asciidoctor --version
 asciidoctor $root/tlv/docs/tlv.adoc
 
 # this will include the docs in the application jar file
@@ -39,6 +38,24 @@ pushd $root/tlv/time_lapse
 	cat tlv/config.yml >> grails-app/conf/application.yml
 	set -x
 
+	# don't show any US data
+	# place the US boundary geojson so that it gets included in the application jar file
+	mv $root/us-boundaries.geojson grails-app/conf
+	# load the US border data when the application starts
+	bootStrapFile = grails-app/init/BootStrap.groovy
+	sed -i "4i grailsApplication.config.usBoundaries = new MultiPolygon(json.geometry.coordinates)" $bootStrapFile
+	sed -i "4i def json = new JsonSlurper().parseText(file.getText())" $bootStrapFile
+	sed -i "4i def file = getClass().getResource(\"/us-boundaries.geojson\")" $bootStrapFile
+	sed -i "2i def grailsApplication" $bootStrapFile
+	sed -i "1i import groovy.json.JsonSlurper" $bootStrapFile
+	sed -i "1i import geoscript.geom.MultiPolygon" $bootStrapFile
+cat $bootStrapFile
+	# add a restriction to only allow OCONUS searches
+	searchLibraryServiceFile="../plugins/network_specific/grails-app/services/network_specific/SearchLibraryService.groovy"
+	sed -i "22i if (grailsApplication.config.usBoundaries.contains(point)) { return [error: \"This location lies within US borders.\"] }" $searchLibraryServiceFile
+	sed -i "22i def point = new Point(location.longitude, location.latitude)" $searchLibraryServiceFile
+	sed -i "4i import geoscript.geom.Point" $searchLibraryServiceFile
+cat $searchLibraryServiceFile
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
 
