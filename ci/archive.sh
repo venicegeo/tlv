@@ -42,7 +42,7 @@ pushd $root/tlv/time_lapse
 	# place the US boundary geojson so that it gets included in the application jar file
 	mv $root/us-boundaries.geojson grails-app/conf
 	# load the US border data when the application starts
-	bootStrapFile = grails-app/init/BootStrap.groovy
+	bootStrapFile="grails-app/init/BootStrap.groovy"
 	sed -i "4i grailsApplication.config.usBoundaries = new MultiPolygon(json.geometry.coordinates)" $bootStrapFile
 	sed -i "4i def json = new JsonSlurper().parseText(file.getText())" $bootStrapFile
 	sed -i "4i def file = getClass().getResource(\"/us-boundaries.geojson\")" $bootStrapFile
