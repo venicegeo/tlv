@@ -41,6 +41,7 @@ pushd $root/tlv/time_lapse
 	# don't show any US data
 	# place the US boundary geojson so that it gets included in the application jar file
 	mv $root/us-boundaries.geojson grails-app/conf
+
 	# load the US border data when the application starts
 	bootStrapFile="grails-app/init/BootStrap.groovy"
 	sed -i "4i grailsApplication.config.usBoundaries = new MultiPolygon(json.geometry.coordinates)" $bootStrapFile
@@ -49,13 +50,13 @@ pushd $root/tlv/time_lapse
 	sed -i "2i def grailsApplication" $bootStrapFile
 	sed -i "1i import groovy.json.JsonSlurper" $bootStrapFile
 	sed -i "1i import geoscript.geom.MultiPolygon" $bootStrapFile
-cat $bootStrapFile
+
 	# add a restriction to only allow OCONUS searches
 	searchLibraryServiceFile="../plugins/network_specific/grails-app/services/network_specific/SearchLibraryService.groovy"
 	sed -i "22i if (grailsApplication.config.usBoundaries.contains(point)) { return [error: \"This location lies within US borders.\"] }" $searchLibraryServiceFile
 	sed -i "22i def point = new Point(location.longitude, location.latitude)" $searchLibraryServiceFile
 	sed -i "4i import geoscript.geom.Point" $searchLibraryServiceFile
-cat $searchLibraryServiceFile
+
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
 
