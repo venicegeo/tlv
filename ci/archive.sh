@@ -60,6 +60,9 @@ pushd $root/tlv/time_lapse
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
 
+	# testing
+	sed -i "14i println ip" grails-app/services/time_lapse/LogsService.groovy
+
 	# create the jar file
 	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
