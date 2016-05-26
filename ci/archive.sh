@@ -61,8 +61,7 @@ pushd $root/tlv/time_lapse
 	sed -i '/apply plugin:"war"/d' build.gradle
 
 	# testing
-	sed -i "14i println ip" grails-app/services/time_lapse/LogsService.groovy
-	cat grails-app/services/time_lapse/LogsService.groovy
+	sed -i "12i println request.headerNames.each() { println it }" grails-app/services/time_lapse/LogsService.groovy
 
 	# create the jar file
 	./gradlew assemble
