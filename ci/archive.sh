@@ -62,6 +62,7 @@ pushd $root/tlv/time_lapse
 
 	# testing
 	sed -i "14i println ip" grails-app/services/time_lapse/LogsService.groovy
+	cat grails-app/services/time_lapse/LogsService.groovy
 
 	# create the jar file
 	./gradlew assemble
