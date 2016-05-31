@@ -38,7 +38,7 @@ pushd $root/tlv/time_lapse
 	cat tlv/config.yml >> grails-app/conf/application.yml
 	set -x
 
-	# don't show any US data
+	## don't show any US data
 	# place the US boundary geojson so that it gets included in the application jar file
 	mv $root/us-boundaries.geojson grails-app/conf
 
@@ -60,11 +60,12 @@ pushd $root/tlv/time_lapse
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
 
-	# testing
-	sed -i "12i println request.headerNames.each() { println it; println request.getHeader(it) }" grails-app/services/time_lapse/LogsService.groovy
+	# use a local database
+	sed -i -e "s/production/cheese/g" grails-app/conf/application.yml
+	sed -i -e "s/development/production/g" grails-app/conf/application.yml
+	sed -i -e "s/cheese/development/g" grails-app/conf/application.yml
 
 	# create the jar file
 	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
 popd
-
