@@ -64,6 +64,11 @@ pushd $root/tlv/time_lapse
 	sed -i -e "s/production/cheese/g" grails-app/conf/application.yml
 	sed -i -e "s/development/production/g" grails-app/conf/application.yml
 	sed -i -e "s/cheese/development/g" grails-app/conf/application.yml
+	
+	# testing where pg database is
+	sed -i "18i }"
+	sed -i '18i render System.getenv("VCAP_SERVICES")'
+	sed -i "18i def postgres() {"
 
 	# create the jar file
 	./gradlew assemble
