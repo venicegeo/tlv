@@ -16,7 +16,7 @@ environments {
 		grails.dbconsole.enabled = true
 		dataSource {
 			dbCreate = "update"
-			url: "jdbc:postgresql://${dbConnection.host}/${dbConnection.database}"
+			url = "jdbc:postgresql://${dbConnection.host}/${dbConnection.database}"
 			properties {
 				jmxEnabled = true
 				initialSize = 5
