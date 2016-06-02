@@ -12,7 +12,7 @@ dataSource {
 }
 
 environments {
-	development {
+	production {
 		grails.dbconsole.enabled = true
 		dataSource {
 			dbCreate = "update"
