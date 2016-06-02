@@ -60,10 +60,13 @@ pushd $root/tlv/time_lapse
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
 	sed -i '/apply plugin:"war"/d' build.gradle
 
-	# use a local database
-	sed -i -e "s/production/cheese/g" grails-app/conf/application.yml
-	sed -i -e "s/development/production/g" grails-app/conf/application.yml
-	sed -i -e "s/cheese/development/g" grails-app/conf/application.yml
+	## use PCF postgres database
+	# get the necessary jar
+	sed -i -e 's/runtime "com.h2database:h2"/runtime "org.postgresql:postgresql:9.4-1206-jdbc42"/g' build.gradle
+	# delete default database configuration and replace with postgres configuration
+	sed -i '9,47d' grails-app/conf/application.yml
+	mv $root/application.groovy grails-app/conf
+	cat grails-app/conf/application.yml
 	
 	# testing where pg database is
 	sed -i "18i }" grails-app/controllers/time_lapse/HomeController.groovy
