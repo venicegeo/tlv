@@ -66,7 +66,6 @@ pushd $root/tlv/time_lapse
 	# delete default database configuration and replace with postgres configuration
 	sed -i '9,47d' grails-app/conf/application.yml
 	mv $root/application.groovy grails-app/conf
-	cat grails-app/conf/application.yml
 	
 	# testing where pg database is
 	sed -i "18i }" grails-app/controllers/time_lapse/HomeController.groovy
