@@ -18,26 +18,12 @@ source $root/ci/vars.sh
 git clone --depth 1 https://github.com/time-lapse-viewer/tlv.git
 
 
-# install asciidoctor
-type asciidoctor > /dev/null 2>&1 || gem install asciidoctor
-PATH=$HOME/bin:$PATH
+source $root/ci/create-docs.sh
 
-# create the application documentation
-asciidoctor $root/tlv/docs/tlv.adoc
-
-# this will include the docs in the application jar file
-mv $root/tlv/docs/tlv.html $root/tlv/time_lapse/grails-app/conf/
-
+source $root/ci/modify-config.sh
 
 # compile the artifact
 pushd $root/tlv/time_lapse
-	source $root/ci/modify-config.sh	
-	# this will include the external config file in the application jar file
-	set +x # don't want to show any passwords
-	export HISTFILE=/dev/null # prevent credentials from appearing in the bash_history
-	git clone --depth 1 https://$NAQUINKJ_USER:$NAQUINKJ_PASS@gitlab.devops.geointservices.io/$NAQUINKJ_USER/tlv.git
-	cat tlv/config.yml >> grails-app/conf/application.yml
-	set -x
 
 	## don't show any US data
 	# place the US boundary geojson so that it gets included in the application jar file
