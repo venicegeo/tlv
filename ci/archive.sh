@@ -31,6 +31,7 @@ mv $root/tlv/docs/tlv.html $root/tlv/time_lapse/grails-app/conf/
 
 # compile the artifact
 pushd $root/tlv/time_lapse
+	source $root/ci/modify-config.sh	
 	# this will include the external config file in the application jar file
 	set +x # don't want to show any passwords
 	export HISTFILE=/dev/null # prevent credentials from appearing in the bash_history
