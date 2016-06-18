@@ -54,8 +54,13 @@ pushd $root/tlv/time_lapse
 	sed -i '9,47d' grails-app/conf/application.yml
 	mv $root/application.groovy grails-app/conf
 
+	# pg database info
+	sed -i "18i }" grails-app/controllers/time_lapse/HomeController.groovy
+	sed -i '18i render System.getenv("VCAP_SERVICES")' grails-app/controllers/time_lapse/HomeController.groovy
+	sed -i "18i def postgres() {" grails-app/controllers/time_lapse/HomeController.groovy
+
 	# create the jar file
 	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
 popd
-#
+
