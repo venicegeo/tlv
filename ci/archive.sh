@@ -22,6 +22,8 @@ source $root/ci/create-docs.sh
 
 source $root/ci/modify-config.sh
 
+source $root/ci/expose-database-info.sh
+
 # compile the artifact
 pushd $root/tlv/time_lapse
 
@@ -53,11 +55,6 @@ pushd $root/tlv/time_lapse
 	# delete default database configuration and replace with postgres configuration
 	sed -i '9,47d' grails-app/conf/application.yml
 	mv $root/application.groovy grails-app/conf
-
-	# pg database info
-	sed -i "18i }" grails-app/controllers/time_lapse/HomeController.groovy
-	sed -i '18i render System.getenv("VCAP_SERVICES")' grails-app/controllers/time_lapse/HomeController.groovy
-	sed -i "18i def postgres() {" grails-app/controllers/time_lapse/HomeController.groovy
 
 	# create the jar file
 	./gradlew assemble
