@@ -42,8 +42,8 @@ pushd $root/tlv/time_lapse
 
 	# add a restriction to only allow OCONUS searches
 	searchLibraryServiceFile="../plugins/network_specific/grails-app/services/network_specific/SearchLibraryService.groovy"
-	sed -i "23i if (grailsApplication.config.usBoundaries.contains(point)) { return [error: \"This location lies within US borders.\"] }" $searchLibraryServiceFile
-	sed -i "23i def point = new Point(results.location[0], results.location[1])" $searchLibraryServiceFile
+	sed -i "25i if (grailsApplication.config.usBoundaries.contains(point)) { return [error: \"This location lies within US borders.\"] }" $searchLibraryServiceFile
+	sed -i "25i def point = new Point(results.location[0], results.location[1])" $searchLibraryServiceFile
 	sed -i "4i import geoscript.geom.Point" $searchLibraryServiceFile
 
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
