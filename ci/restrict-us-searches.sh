@@ -14,7 +14,7 @@ mv $root/us-boundaries.geojson $root/tlv/time_lapse/grails-app/conf
      sed -i "2i def grailsApplication" $bootStrapFile
 
      sed -i "1i \
-          import geoscript.geom.MultiPolygon \
+          import geoscript.geom.MultiPolygon \n\
           import groovy.json.JsonSlurper" $bootStrapFile
 
 
@@ -23,6 +23,5 @@ mv $root/us-boundaries.geojson $root/tlv/time_lapse/grails-app/conf
      sed -i "25i \
           def point = new Point(results.location[0], results.location[1]) \n\
           if (grailsApplication.config.usBoundaries.contains(point)) { return [error: \"This location lies within US borders.\"] }" $searchLibraryServiceFile
-cat $root/tlv/plugins/network_specific/grails-app/services/network_specific/SearchLibraryService.groovy
 
      sed -i "4i import geoscript.geom.Point" $searchLibraryServiceFile
