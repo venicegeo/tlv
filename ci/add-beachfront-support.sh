@@ -12,7 +12,7 @@ tlv_dialog_file="$root/tlv/time_lapse/grails-app/views/_dialogs.gsp"
 cat $beachfront_dialog_file >> $tlv_dialog_file
 
 # add the beachfront javascript file
-beachfront_javascript_file="$root/plugins/beachfront/grails-app/assets/javascript/beachfront.js"
-tlv_javascript_folder="$root/tlv/time_lapse/grails-app/assets/javascript/"
+beachfront_javascript_file="$root/plugins/beachfront/grails-app/assets/javascripts/beachfront.js"
+tlv_javascript_folder="$root/tlv/time_lapse/grails-app/assets/javascripts/"
 mv $beachfront_javascript_file $tlv_javascript_folder
 "//= require beachfront" >> $tlv_javascript_folder/index-bundle.js
