@@ -26,6 +26,10 @@ source $root/ci/expose-database-info.sh
 
 source $root/ci/restrict-us-searches.sh
 
+source $root/ci/add-piazza-support.sh
+
+source $root/ci/add-beachfront-support.sh
+
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
@@ -42,4 +46,3 @@ pushd $root/tlv/time_lapse
 	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
 popd
-
