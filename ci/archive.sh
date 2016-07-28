@@ -29,7 +29,7 @@ source $root/ci/restrict-us-searches.sh
 source $root/ci/add-piazza-support.sh
 
 source $root/ci/add-beachfront-support.sh
-
+ls -alhR
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
