@@ -53,7 +53,7 @@ function loadGeojsonFromPiazza(dataId, source) {
             var features = new ol.format.GeoJSON().readFeatures(data, { featureProjection: "EPSG:3857" });
             source.addFeatures(features);
         },
-        url: document.location.origin.replace(/tlv/, "pz-gateway" + "/file/" + dataId
+        url: document.location.origin.replace(/tlv/, "pz-gateway") + "/file/" + dataId
     });
 }
 

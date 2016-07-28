@@ -30,8 +30,6 @@ source $root/ci/add-piazza-support.sh
 
 source $root/ci/add-beachfront-support.sh
 
-cat $root/tlv/time_lapse/grails-app/assets/javascripts/index-bundle.js
-
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage
