@@ -30,7 +30,7 @@ source $root/ci/add-piazza-support.sh
 
 source $root/ci/add-beachfront-support.sh
 
-cat $root/plugins/beachfront/grails-app/assets/javascripts/index-bundle.js
+cat $root/tlv/time_lapse/grails-app/assets/javascripts/index-bundle.js
 
 # compile the artifact
 pushd $root/tlv/time_lapse
