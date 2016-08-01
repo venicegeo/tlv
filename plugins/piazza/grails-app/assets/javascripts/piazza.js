@@ -8,7 +8,7 @@ var pageLoadPiazza = pageLoad;
 pageLoad = function() {
 	pageLoadPiazza();
 
-	tlv.domain = document.location.origin.replace(/http[s]?\/\/tlv/, "");
+	tlv.domain = document.location.origin.replace(/http[s]?[:]\/\/tlv/, "");
 }
 
 function validatePiazzaCredentials(callback) {
