@@ -4,6 +4,13 @@ function invalidPiazzaCredentials() {
 	tlv.piazzaCredentials = null;
 }
 
+var pageLoadPiazza = pageLoad;
+pageLoad = function() {
+	pageLoadPiazza();
+
+	tlv.domain = document.location.origin.replace(/http[s]?\/\/tlv/, "");
+}
+
 function validatePiazzaCredentials(callback) {
 	displayLoadingDialog("Hang tight, we'll see if our bouncer will let you in.");
 
@@ -37,12 +44,12 @@ function validatePiazzaCredentials(callback) {
 						tlv.piazzaCredentials.key = data.uuid;
 						callback();
 					},
-					url: document.location.origin.replace(/tlv/, "pz-security") + "/key"
+					url: "https://pz-security" + tlv.domain + "/key"
 				});
 			}
 			else { invalidPiazzaCredentials(); }
 		},
 		type: "POST",
-		url: document.location.origin.replace(/tlv/, "pz-security") + "/verification"
+		url: "https://pz-security" + tlv.domain + "/verification"
 	});
 }

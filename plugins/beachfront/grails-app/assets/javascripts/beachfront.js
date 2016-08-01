@@ -46,14 +46,18 @@ function buildBeachfrontResultsTable() {
 }
 
 function loadGeojsonFromPiazza(dataId, source) {
+    displayLoadingDialog("Let's see... now where did I put that file?...");
+
     $.ajax({
         dataType: "json",
         headers: { "Authorization": "Basic " + btoa(tlv.piazzaCredentials.key + ":") },
         success: function(data) {
             var features = new ol.format.GeoJSON().readFeatures(data, { featureProjection: "EPSG:3857" });
             source.addFeatures(features);
+
+            hideLoadingDialog();
         },
-        url: document.location.origin.replace(/tlv/, "pz-gateway") + "/file/" + dataId
+        url: "https://pz-gateway" + tlv.domain + "/file/" + dataId
     });
 }
 
@@ -78,9 +82,7 @@ function queryBeachfront() {
 						context: x,
 						data: JSON.stringify({
                             "query" : {
-                                "match" : {
-                                    "_all" : "landsat:" + x.imageId
-                                }
+                                "match" : { "_all" : "landsat:" + x.imageId }
                             }
                         }),
 						headers: { "Authorization": "Basic " + btoa(tlv.piazzaCredentials.key + ":") },
@@ -114,7 +116,7 @@ function queryBeachfront() {
                             queryBeachfront();
 						},
 						type: "POST",
-						url: document.location.origin.replace(/tlv/, "pz-gateway") + "/data/query"
+						url: "https://pz-gateway" + tlv.domain + "/data/query"
 					});
 
 
