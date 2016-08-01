@@ -1,7 +1,10 @@
 <div class = "modal" id = "piazzaCredentialsDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
-			<div class = "modal-header"><h4><a onclick = 'window.open(document.location.origin.replace(/tlv/, "pz-docs"))'>Piazza</a> Credentials</h4></div>
+			<div class = "modal-header">
+				<h4>Piazza Credentials</h4>
+				<a onclick = 'window.open(document.location.origin.replace(/tlv/, "pz-docs"))'>What is Piazza?</a>
+			</div>
 			<div class = "modal-body">
 				<form>
 				<div class = "form-group">
