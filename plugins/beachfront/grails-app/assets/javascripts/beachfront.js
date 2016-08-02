@@ -2,7 +2,7 @@ function buildBeachfrontResultsTable() {
     $("#beachfrontResultsDialog").modal("show");
 
     var table = $("#beachfrontResultsTable")[0];
-    for (var i = table.rows.length - 1; i > 0; i--) { table.deleteRow(i); }
+    for (var i = table.rows.length - 1; i >= 0; i--) { table.deleteRow(i); }
 
     var row = table.insertRow(table.rows.length);
     var cell;
@@ -35,7 +35,7 @@ function buildBeachfrontResultsTable() {
                         $(cell).append(
                             "<select onchange = toggleBeachfrontLayer(" + i + ",'" + j + "',$(this).val())>" +
                                 "<option>OFF</option>" +
-                                "<option>ON</option>" +
+                                "<option" + (y.mapLayer.getVisible() ? " selected = 'selected'" : "") + ">ON</option>" +
                             "</select>"
                         );
                     }
