@@ -12,8 +12,7 @@ function addGbdxFeatureInteraction(type) {
 		var features = event.selected;
 		if (features.length > 0) {
 			var feature = features[0];
-			var coordinate = feature.getGeometry().getFirstCoordinate();
-			var pixel = tlv.map.getPixelFromCoordinate(coordinate);
+			var pixel = event.mapBrowserEvent.pixel;
 			tlv.tooltipInfo.css({
 				left: pixel[0] + "px",
 				top: pixel[1] + "px"
