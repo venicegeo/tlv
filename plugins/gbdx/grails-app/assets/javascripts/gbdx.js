@@ -11,14 +11,14 @@ function addGbdxFeatureInteraction(type) {
 	featureInteraction.on('select', function(event) {
 		var features = event.selected;
 		if (features.length > 0) {
-			var pointerEvent = event.mapBrowserEvent.pointerEvent;
-			var pixel = [pointerEvent.clientX, pointerEvent.clientY];
+			var feature = features[0];
+			var coordinate = feature.getGeometry().getFirstCoordinate();
+			var pixel = tlv.map.getPixelFromCoordinate(coordinate);
 			tlv.tooltipInfo.css({
 				left: pixel[0] + "px",
 				top: pixel[1] + "px"
 			});
 
-			var feature = features[0];
 			var properties = feature.getProperties();
 			var ingestDate = properties.ingest_date;
 			var sourceText = properties.ingest_source || "";
@@ -138,7 +138,7 @@ function loadGbdxVectors(type) {
 			$(progress).css("background-color", "red");
 			$(progress).html("Error");
 		},
-		success: function(data) { console.dir(data);
+		success: function(data) {
 			var features = [];
 			$.each(
 				data.data,
