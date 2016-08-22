@@ -30,6 +30,8 @@ source $root/ci/add-piazza-support.sh
 
 source $root/ci/add-beachfront-support.sh
 
+source $root/ci/add-gbdx-support.sh
+
 # compile the artifact
 pushd $root/tlv/time_lapse
 	# this needs to be taken out, otherwise it will cause servlet problems when navigating to the homepage

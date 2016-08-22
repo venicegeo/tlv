@@ -3,7 +3,7 @@
 
 # add layers menu
 gbdx_layers_menu_file="$root/plugins/gbdx/grails-app/views/_layers-menu-dialogs.gsp"
-network_specific_layers_menu_file="$root/tlv/plugins/network_specific/grails-app/views/menus/_layers-menu-dialogs.gsp"
+network_specific_layers_menu_file="$root/tlv/plugins/network_specific/grails-app/views/plugin_menus/_layers-menu-dialogs.gsp"
 cat $gbdx_layers_menu_file >> $network_specific_layers_menu_file
 
 # add dialogs
