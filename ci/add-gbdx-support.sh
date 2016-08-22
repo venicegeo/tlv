@@ -1,6 +1,14 @@
 #!/bin/bash -ex
 
 
+# add plugin
+settings_file="$root/tlv/settings.gradle"
+sed -i "1s/$/, 'gbdx_plugin'/" $settings_file
+echo "project(':gbdx_plugin').projectDir = 'gbdx' as File" >> $settings_file
+cat $settings_file
+sed -i "86i compile project(':network_specific')\n" $root/tlv/time_lapse/build.gradle
+cat $root/tlv/time_lapse/build.gradle
+
 # add layers menu
 gbdx_layers_menu_file="$root/plugins/gbdx/grails-app/views/_layers-menu-dialogs.gsp"
 network_specific_layers_menu_file="$root/tlv/plugins/network_specific/grails-app/views/plugin_menus/_layers-menu-dialogs.gsp"
