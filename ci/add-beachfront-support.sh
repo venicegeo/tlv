@@ -3,8 +3,8 @@
 
 # add beachfront layers menu
 beachfront_layers_menu_file="$root/plugins/beachfront/grails-app/views/_layers-menu-dialogs.gsp"
-tlv_layers_menu_file="$root/tlv/time_lapse/grails-app/views/menus/_layers-menu-dialogs.gsp"
-sed -i "21r $beachfront_layers_menu_file" $tlv_layers_menu_file
+network_specific_layers_menu_file="$root/tlv/plugins/network_specific/grails-app/views/menus/_layers-menu-dialogs.gsp"
+cat $beachfront_layers_menu_file >> $network_specific_layers_menu_file
 
 # add beachfront dialogs
 beachfront_dialog_file="$root/plugins/beachfront/grails-app/views/_beachfront-dialogs.gsp"
