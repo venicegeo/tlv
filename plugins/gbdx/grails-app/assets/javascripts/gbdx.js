@@ -13,7 +13,19 @@ function addGbdxFeatureInteraction(type) {
 		if (features.length > 0) {
 			var feature = features[0];
 			var pixel = event.mapBrowserEvent.pixel;
-			pixel[1] += $(".security-classification").parent().height() + $("#navigationMenu").parent().height() + $("#navigationMenu").parent().next().height() + $("#tileLoadProgressBar").height();
+			var securityClassificationHeaderHeight = $(".security-classification").parent().height();
+			pixel[1] += securityClassificationHeaderHeight;
+			console.log("securityClassificationHeaderHeight: " + securityClassificationHeaderHeight);
+			var navigationMenuHeight = $("#navigationMenu").parent().height();
+			pixel[1] += navigationMenuHeight;
+			console.log("navigationMenuHeight: " + navigationMenuHeight);
+			var imageInfoHeight = $("#navigationMenu").parent().next().height();
+			pixel[1] += imageInfoHeight;
+			console.log("imageInfoHeight: " + imageInfoHeight);
+			var tileLoadProgressBarHeight = $("#tileLoadProgressBar").height();
+			pixel[1] += tileLoadProgressBarHeight;
+			console.log("tileLoadProgressBarHeight: " + tileLoadProgressBarHeight);
+
 			tlv.tooltipInfo.css({
 				left: pixel[0] + "px",
 				top: pixel[1] + "px"
