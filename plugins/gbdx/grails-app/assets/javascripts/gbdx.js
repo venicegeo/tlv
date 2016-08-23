@@ -1,49 +1,7 @@
-function addGbdxFeatureInteraction(type) {
-	var layer = tlv.gbdx.vectors[type].mapLayer;
-
-	var featureInteraction = tlv.gbdx.vectors[type].featureInteraction;
-	if (featureInteraction) { tlv.map.removeInteraction(featureInteraction); }
-	featureInteraction = new ol.interaction.Select({
-		condition: ol.events.condition.pointerMove,
-		layers: [layer]
-	});
-
-	featureInteraction.on('select', function(event) {
-		var features = event.selected;
-		if (features.length > 0) {
-			var feature = features[0];
-			var pixel = event.mapBrowserEvent.pixel;
-			var securityClassificationHeaderHeight = $(".security-classification").parent().height();
-			pixel[1] += securityClassificationHeaderHeight;
-			console.log("securityClassificationHeaderHeight: " + securityClassificationHeaderHeight);
-			var navigationMenuHeight = $("#navigationMenu").parent().height();
-			pixel[1] += navigationMenuHeight;
-			console.log("navigationMenuHeight: " + navigationMenuHeight);
-			var imageInfoHeight = $("#navigationMenu").parent().next().height();
-			pixel[1] += imageInfoHeight;
-			console.log("imageInfoHeight: " + imageInfoHeight);
-			var tileLoadProgressBarHeight = $("#tileLoadProgressBar").height();
-			pixel[1] += tileLoadProgressBarHeight;
-			console.log("tileLoadProgressBarHeight: " + tileLoadProgressBarHeight);
-
-			tlv.tooltipInfo.css({
-				left: pixel[0] + "px",
-				top: pixel[1] + "px"
-			});
-
-			var properties = feature.getProperties();
-			var ingestDate = properties.ingest_date;
-			var sourceText = properties.ingest_source || "";
-			var typeText = properties.item_type ? properties.item_type[0] : "";
-   			tlv.tooltipInfo.tooltip("hide")
-				.attr('data-original-title', "Type: " + typeText + "\nSource: " + sourceText + "\nIngest Date: " + ingestDate)
-				.tooltip('fixTitle')
-				.tooltip('show');
-		}
-		else { tlv.tooltipInfo.tooltip("hide"); }
-
-	});
-	tlv.map.addInteraction(featureInteraction);
+var aFeatureHasBeenSelectedGbdx = aFeatureHasBeenSelected;
+aFeatureHasBeenSelected = function(feature, event) {
+	if (feature.getProperties().featureType == "gbdx") { displayGbdxFeatureInfo(feature, event.pixel); }
+	else { aFeatureHasBeenSelectedGbdx(feature, event); }
 }
 
 function buildGbdxVectorTypesTable() {
@@ -122,6 +80,31 @@ function createGbdxLayerStyle(typeIndex) {
 	});
 }
 
+function displayGbdxFeatureInfo(feature, pixel) {
+	var securityClassificationHeaderHeight = $(".security-classification").parent().height();
+	pixel[1] += securityClassificationHeaderHeight;
+	var navigationMenuHeight = $("#navigationMenu").parent().height();
+	pixel[1] += navigationMenuHeight;
+	var imageInfoHeight = $("#navigationMenu").parent().next().height();
+	pixel[1] += imageInfoHeight;
+	var tileLoadProgressBarHeight = $("#tileLoadProgressBar").height();
+	pixel[1] += tileLoadProgressBarHeight;
+
+	tlv.tooltipInfo.css({
+		left: pixel[0] + "px",
+		top: pixel[1] + "px"
+	});
+
+	var properties = feature.getProperties();
+	var ingestDate = properties.ingest_date;
+	var sourceText = properties.ingest_source || "";
+	var typeText = properties.item_type ? properties.item_type[0] : "";
+	tlv.tooltipInfo.tooltip("hide")
+		.attr('data-original-title', "Type: " + typeText + "\nSource: " + sourceText + "\nIngest Date: " + ingestDate)
+		.tooltip('fixTitle')
+		.tooltip('show');
+}
+
 function invalidGbdxCredentials() {
 	displayErrorDialog("Nope, those weren't the right credentials.");
 	$("#gbdxCredentialsDialog").modal("show");
@@ -156,6 +139,7 @@ function loadGbdxVectors(type) {
 				data.data,
 				function(i, x) {
 					var feature = new ol.format.GeoJSON().readFeature(x, { featureProjection: "EPSG:3857" });
+					feature.setProperties({ featureType: "gbdx" });
 					features.push(feature);
 				}
 			);
@@ -164,8 +148,6 @@ function loadGbdxVectors(type) {
 
 			$(progress).css("background-color", "green");
 			$(progress).html("Loaded");
-
-			addGbdxFeatureInteraction(type);
 		},
 		url: tlv.contextPath + "/gbdx/queryVectors"
 	});
