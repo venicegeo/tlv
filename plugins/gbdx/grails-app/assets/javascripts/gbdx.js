@@ -13,6 +13,7 @@ function addGbdxFeatureInteraction(type) {
 		if (features.length > 0) {
 			var feature = features[0];
 			var pixel = event.mapBrowserEvent.pixel;
+			pixel[1] += $(".security-classification").parent().height() + $("#navigationMenu").parent().height() + $("#navigationMenu").parent().next().height() + $("#tileLoadProgressBar").height();
 			tlv.tooltipInfo.css({
 				left: pixel[0] + "px",
 				top: pixel[1] + "px"
