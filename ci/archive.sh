@@ -44,6 +44,9 @@ pushd $root/tlv/time_lapse
 	sed -i '9,47d' grails-app/conf/application.yml
 	mv $root/application.groovy grails-app/conf
 
+	# test the app
+	grails test-app
+
 	# create the jar file
 	./gradlew assemble
 	mv build/libs/time_lapse-0.1.jar $root/$APP.$EXT
