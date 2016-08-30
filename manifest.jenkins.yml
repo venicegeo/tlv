@@ -8,5 +8,3 @@ applications:
   services:
     - pz-postgres
   timeout: 180
-  env:
-    FORCE_HTTPS: true
