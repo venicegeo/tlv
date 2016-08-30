@@ -45,7 +45,7 @@ pushd $root/tlv/time_lapse
 	mv $root/application.groovy grails-app/conf
 
 	# test the app
-	grails test-app
+	#grails test-app
 
 	# create the jar file
 	./gradlew assemble
