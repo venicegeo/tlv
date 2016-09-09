@@ -17,8 +17,8 @@
 				</form>
 			</div>
 			<div class = "modal-footer">
-				<button type = "button" class = "btn btn-primary" data-dismiss = "modal">Login</button>
-				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
+				<button type = "button" class = "btn btn-primary" onclick = validatePiazzaCredentials()>Login</button>
+				<button type = "button" class = "btn btn-default" onclick = window.open("/docs#_contact")>Help</button>
 			</div>
 		</div>
 	</div>

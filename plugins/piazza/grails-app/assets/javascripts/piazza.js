@@ -1,17 +1,52 @@
+var beginSearchPiazza = beginSearch;
+beginSearch = function() {
+	if (!tlv.piazzaCredentials) {
+		$("#piazzaCredentialsDialog").modal("show");
+	}
+	else { beginSearchPiazza(); }
+}
+
 function invalidPiazzaCredentials() {
 	displayErrorDialog("Nope, those weren't the right credentials.");
 	$("#piazzaCredentialsDialog").modal("show");
 	tlv.piazzaCredentials = null;
 }
 
+function getPiazzaApiKey(callback) {
+	displayLoadingDialog("Let me see if my keys are in my other pair of pants.");
+
+	var password = tlv.piazzaCredentials.password;
+	var username = tlv.piazzaCredentials.username;
+	$.ajax({
+		contentType: "application/json",
+		error: function(jqXhr, textStatus, errorThrown) {
+			hideLoadingDialog();
+			invalidPiazzaCredentials();
+		},
+		headers: { "Authorization": "Basic " + btoa(username + ":" + password) },
+		success: function(data) {
+			hideLoadingDialog();
+			tlv.piazzaCredentials.key = data.uuid;
+			callback();
+		},
+		url: "https://pz-security" + tlv.domain + "/key"
+	});
+}
+
 var pageLoadPiazza = pageLoad;
 pageLoad = function() {
 	pageLoadPiazza();
 
-	tlv.domain = document.location.origin.replace(/http[s]?[:]\/\/tlv/, "");
+	tlv.domain = ".stage.geointservices.io"; //document.location.origin.replace(/http[s]?[:]\/\/tlv/, "");
+	$("#searchDialog").modal("hide");
+
+	$("#piazzaCredentialsDialog").modal({
+		backdrop: "static",
+		keyboard: false
+	});
 }
 
-function validatePiazzaCredentials(callback) {
+function validatePiazzaCredentials() {
 	displayLoadingDialog("Hang tight, we'll see if our bouncer will let you in.");
 
 	var password = $("#piazzaPasswordInput").val();
@@ -25,27 +60,16 @@ function validatePiazzaCredentials(callback) {
 			invalidPiazzaCredentials();
 		},
 		success: function(data) {
+			hideLoadingDialog();
+
 			if (data == "true") {
 				tlv.piazzaCredentials = {
 					password: password,
 					username: username
 				};
 
-				// get user api key
-				$.ajax({
-					contentType: "application/json",
-					error: function(jqXhr, textStatus, errorThrown) {
-						hideLoadingDialog();
-						invalidPiazzaCredentials();
-					},
-					headers: { "Authorization": "Basic " + btoa(username + ":" + password) },
-					success: function(data) {
-						hideLoadingDialog();
-						tlv.piazzaCredentials.key = data.uuid;
-						callback();
-					},
-					url: "https://pz-security" + tlv.domain + "/key"
-				});
+				$("#piazzaCredentialsDialog").modal("hide");
+				$("#searchDialog").modal("show");
 			}
 			else { invalidPiazzaCredentials(); }
 		},

@@ -66,10 +66,8 @@ function queryBeachfront() {
 		tlv.layers,
 		function(i, x) {
 			if (!x.beachfront) {
-				if (!tlv.piazzaCredentials) {
-					$("#piazzaCredentialsDialog").modal("show");
-					var loginButton = $("#piazzaCredentialsDialog .modal-footer").children()[0];
-					loginButton.onclick = function() { validatePiazzaCredentials(queryBeachfront); }
+				if (!tlv.piazzaCredentials.key) {
+					getPiazzaApiKey(queryBeachfront);
 
 
                     return false;
